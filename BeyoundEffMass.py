@@ -5,9 +5,13 @@ import matplotlib.pyplot as plt
 
 class CBeyondEffMass:
     """
+    Implementation of the numerical method from
+    "Beyond the effective mass approximation: A predictive theory of the nonlinear optical response of conduction electrons"
+    https://doi.org/10.1103/PhysRevB.95.125201
 
     /================================================================================================|
     / Region 1 (vacuum)                       |   Region 2 (material)         | Region 3 (vacuum)    |
+    ==================================================================================================
     / characterized by                        |                               |                      |
     / the coordinate step size Δx1            |         Δx2                   |          Δx3         |
     / the number of coordinate points  n1     |         n2                    |          n3          |
@@ -18,7 +22,6 @@ class CBeyondEffMass:
     /================================================================================================|
 
     Notes: n1 will be set as Ez_init.size. Hy stand for H_y^\#.
-
     """
     def __init__(self, *, Δx1:float, Δt:float, Ez_init:np.ndarray, diff_E,
                  n:float = 0, γ:float = 0, epsilon_infty:float = 1,
@@ -216,9 +219,9 @@ class CBeyondEffMass:
         Plot the current electric field
         :return:
         """
-        plt.plot(self.x1, self.Ez1, "y", label="vacuum")
-        plt.plot(self.x2, self.Ez2, "b", label="bulk")
-        plt.plot(self.x3, self.Ez3, "y")
+        plt.plot(self.x1, self.Ez1 / 1e5, "y", label="vacuum")
+        plt.plot(self.x2, self.Ez2 / 1e5, "b", label="bulk")
+        plt.plot(self.x3, self.Ez3 / 1e5, "y")
         plt.xlabel("$x$ (m)")
-        plt.ylabel("Electric field $E_z$ (V/m)")
+        plt.ylabel("Electric field $E_z$ (kV/cm)")
         plt.axvspan(self.x2[0], self.x2[-1], color="b", alpha=0.2)
