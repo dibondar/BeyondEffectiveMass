@@ -214,14 +214,14 @@ class CBeyondEffMass:
         self.__matter_single_step_propagation()
         self.__half_step_maxwell_propagation()
 
-    def plot_Ez(self):
+    def plot_Ez(self, bulk_color="b"):
         """
         Plot the current electric field
         :return:
         """
         plt.plot(self.x1, self.Ez1 / 1e5, "y", label="vacuum")
-        plt.plot(self.x2, self.Ez2 / 1e5, "b", label="bulk")
+        plt.plot(self.x2, self.Ez2 / 1e5,  "b", label="bulk")
         plt.plot(self.x3, self.Ez3 / 1e5, "y")
         plt.xlabel("$x$ (m)")
         plt.ylabel("Electric field $E_z$ (kV/cm)")
-        plt.axvspan(self.x2[0], self.x2[-1], color="b", alpha=0.2)
+        plt.axvspan(self.x2[0], self.x2[-1], color=bulk_color, alpha=0.2)
